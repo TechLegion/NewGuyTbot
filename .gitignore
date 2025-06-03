@@ -1,0 +1,35 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyc
+
+# Virtual environment
+venv/
+env/
+ENV/
+.venv/
+.ENV/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE/editor files
+.vscode/
+.idea/
+*.swp
+
+# Sensitive files
+Keys.txt
+userbot_session.session
+
+# Log files
+*.log
+
+# Pip
+pip-log.txt
+
+# Telethon session files (if you use other session names)
+*.session
