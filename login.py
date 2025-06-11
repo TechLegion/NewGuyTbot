@@ -58,10 +58,11 @@ async def handler(event):
     print(f"[{now}] [INFO] No 'TrojanBot' button found in this message.")
 
 async def main():
+    # Start the client with the phone number directly
     await client.start(phone=phone)
     print('Logged in successfully! Listening for new messages...')
     await client.run_until_disconnected()
 
 if __name__ == '__main__':
-    with client:
-        client.loop.run_until_complete(main())
+    # Run the client in a way that doesn't require interactive input
+    asyncio.run(main())
