@@ -6,18 +6,10 @@ from datetime import datetime
 from dotenv import load_dotenv
 import os
 
-# Load environment variables~
+# Load environment variables
 load_dotenv()
 
-# Read credentials from Keys.txt
-config = configparser.ConfigParser()
-config.read_dict({'DEFAULT': {}})
-with open('Keys.txt', 'r') as f:
-    for line in f:
-        if '=' in line:
-            key, value = line.strip().split('=', 1)
-            config['DEFAULT'][key.strip()] = value.strip()
-
+# Get credentials from environment variables
 api_id = int(os.environ.get('API_ID'))
 api_hash = os.environ.get('API_HASH')
 phone = os.environ.get('PHONE_NUMBER')
