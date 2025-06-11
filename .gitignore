@@ -32,6 +32,8 @@ ENV/
 # Telegram Session Files
 *.session
 *.session-journal
+my_session.session
+my_session.session-journal
 
 # Project specific
 Keys.txt

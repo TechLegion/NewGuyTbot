@@ -10,4 +10,6 @@ services:
       - key: API_HASH
         sync: false
       - key: PHONE_NUMBER
+        sync: false
+      - key: TELEGRAM_CODE
         sync: false 

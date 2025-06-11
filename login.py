@@ -14,8 +14,8 @@ api_id = int(os.environ.get('API_ID'))
 api_hash = os.environ.get('API_HASH')
 phone = os.environ.get('PHONE_NUMBER')
 
-# Create the client and connect
-client = TelegramClient('userbot_session', api_id, api_hash)
+# Create the client and connect using the pre-generated session
+client = TelegramClient('my_session', api_id, api_hash)
 
 CHANNEL = 2361324101  # Channel ID for VIP channel
 BUTTON_TEXT = '🎯 TrojanBot'        # Button to click
@@ -58,11 +58,10 @@ async def handler(event):
     print(f"[{now}] [INFO] No 'TrojanBot' button found in this message.")
 
 async def main():
-    # Start the client with the phone number directly
-    await client.start(phone=phone)
+    # Start the client without phone number (using session file)
+    await client.start()
     print('Logged in successfully! Listening for new messages...')
     await client.run_until_disconnected()
 
 if __name__ == '__main__':
-    # Run the client in a way that doesn't require interactive input
     asyncio.run(main())
