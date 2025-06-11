@@ -1,35 +1,54 @@
 # Python
 __pycache__/
 *.py[cod]
-*.pyo
-*.pyd
-*.pyc
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
 
-# Virtual environment
+# Virtual Environment
 venv/
 env/
 ENV/
-.venv/
-.ENV/
 
-# OS files
+# Environment Variables
+.env
+.env.*
+
+# Telegram Session Files
+*.session
+*.session-journal
+
+# Project specific
+Keys.txt
+userbot_session*
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
 .DS_Store
 Thumbs.db
-
-# IDE/editor files
-.vscode/
-.idea/
-*.swp
-
-# Sensitive files
-Keys.txt
-userbot_session.session
 
 # Log files
 *.log
 
 # Pip
 pip-log.txt
-
-# Telethon session files (if you use other session names)
-*.session

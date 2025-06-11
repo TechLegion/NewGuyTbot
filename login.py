@@ -6,7 +6,7 @@ from datetime import datetime
 from dotenv import load_dotenv
 import os
 
-# Load environment variables
+# Load environment variables~
 load_dotenv()
 
 # Read credentials from Keys.txt
@@ -25,9 +25,9 @@ phone = os.environ.get('PHONE_NUMBER')
 # Create the client and connect
 client = TelegramClient('userbot_session', api_id, api_hash)
 
-CHANNEL = 'BullishCallsPremium'  # Channel username without @
+CHANNEL = 2361324101  # Channel ID for VIP channel
 BUTTON_TEXT = '🎯 TrojanBot'        # Button to click
-DELAY_RANGE = (10, 60)          # Random delay in seconds
+DELAY_RANGE = (10, 30)          # Random delay in seconds
 
 @client.on(events.NewMessage(chats=CHANNEL))
 async def handler(event):
@@ -47,9 +47,20 @@ async def handler(event):
                         await event.click(text=BUTTON_TEXT)
                         now = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
                         print(f"[{now}] [INFO] Clicked 'TrojanBot' button!")
+                        # Extract contract key from message
+                        contract_key = None
+                        for line in event.text.split('\n'):
+                            if 'Contract:' in line:
+                                contract_key = line.split('Contract:', 1)[1].strip()
+                                break
+                        if contract_key:
+                            await client.send_message('solana_trojanbot', contract_key)
+                            print(f"[{now}] [INFO] Sent contract key to @solana_trojanbot: {contract_key}")
+                        else:
+                            print(f"[{now}] [WARN] No contract key found in message!")
                     except Exception as e:
                         now = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-                        print(f"[{now}] [ERROR] Failed to click button: {e}")
+                        print(f"[{now}] [ERROR] Failed to click button or start bot: {e}")
                     return
     now = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     print(f"[{now}] [INFO] No 'TrojanBot' button found in this message.")
