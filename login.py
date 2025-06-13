@@ -68,7 +68,11 @@ async def handler(event):
 
 async def main():
     # Start the client without phone number (using session file)
-    await client.start()
+    await client.connect()
+    if not await client.is_user_authorized():
+        print("Session file not found or invalid. Please run generate_session.py first.")
+        return
+    
     print('Logged in successfully! Listening for new messages...')
     
     # Start the web server
