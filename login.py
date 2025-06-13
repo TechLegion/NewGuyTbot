@@ -67,22 +67,23 @@ async def handler(event):
     print(f"[{now}] [INFO] No 'TrojanBot' button found in this message.")
 
 async def main():
-    # Start the client without phone number (using session file)
-    await client.connect()
-    if not await client.is_user_authorized():
-        print("Session file not found or invalid. Please run generate_session.py first.")
-        return
-    
-    print('Logged in successfully! Listening for new messages...')
-    
-    # Start the web server
+    # Start the web server first
     runner = web.AppRunner(app)
     await runner.setup()
     site = web.TCPSite(runner, '0.0.0.0', int(os.environ.get('PORT', 8080)))
     await site.start()
     print(f'Health check server started on port {os.environ.get("PORT", 8080)}')
-    
-    # Keep the bot running
+
+    # Now try to start the bot
+    await client.connect()
+    if not await client.is_user_authorized():
+        print("Session file not found or invalid. Please run generate_session.py first.")
+        # Keep the web server running so Railway health check passes
+        while True:
+            await asyncio.sleep(60)
+        return
+
+    print('Logged in successfully! Listening for new messages...')
     await client.run_until_disconnected()
 
 if __name__ == '__main__':
