@@ -5,6 +5,7 @@ import random
 from datetime import datetime
 from dotenv import load_dotenv
 import os
+from aiohttp import web
 
 # Load environment variables
 load_dotenv()
@@ -20,6 +21,14 @@ client = TelegramClient('my_session', api_id, api_hash)
 CHANNEL = 2361324101  # Channel ID for VIP channel
 BUTTON_TEXT = '🎯 TrojanBot'        # Button to click
 DELAY_RANGE = (10, 30)          # Random delay in seconds
+
+# Create web application
+app = web.Application()
+
+async def health_check(request):
+    return web.Response(text="OK", status=200)
+
+app.router.add_get('/', health_check)
 
 @client.on(events.NewMessage(chats=CHANNEL))
 async def handler(event):
@@ -61,6 +70,15 @@ async def main():
     # Start the client without phone number (using session file)
     await client.start()
     print('Logged in successfully! Listening for new messages...')
+    
+    # Start the web server
+    runner = web.AppRunner(app)
+    await runner.setup()
+    site = web.TCPSite(runner, '0.0.0.0', int(os.environ.get('PORT', 8080)))
+    await site.start()
+    print(f'Health check server started on port {os.environ.get("PORT", 8080)}')
+    
+    # Keep the bot running
     await client.run_until_disconnected()
 
 if __name__ == '__main__':
